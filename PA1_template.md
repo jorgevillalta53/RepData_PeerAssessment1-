@@ -10,14 +10,12 @@ It is now possible to collect a large amount of data about personal movement usi
 
 2.Process/transform the data (if necessary) into a format suitable for your analysis
 
-### **NOTE: I DECIDE TAKE 0 LIKE A REAL VALUE, BECAUSE I THINK THAT ITS A REAL VALUE WHEN YOURE DOING NOTHING, SO THE LECTURE ITS 0**
-
 
 
 ```r
-data_act<-read.csv("activity.csv")
-data_act$date<-as.Date(data_act$date)
-data_act$steps<-ifelse(data_act$steps==0,NA,data_act$steps)
+data_act<-read.csv("activity.csv") ## read data
+data_act$date<-as.Date(data_act$date) ## convert the date format
+data_act$steps<-ifelse(data_act$steps==0,NA,data_act$steps) ## convert the 0 values like NA because a dont take for calculations
 ```
 
 ## What is mean total number of steps taken per day?
@@ -40,8 +38,6 @@ qplot(steps,data=sum_act)
 ![plot of chunk steps_per_day](figure/steps_per_day.png) 
 
 2.Calculate and report the mean and median total number of steps taken per day
-
-### THE VALUES ARE SO LOW, BECAUSE A TAKE 0 LIKE A REAL LECTURE
 
 
 ```r
