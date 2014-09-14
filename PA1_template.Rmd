@@ -16,6 +16,7 @@ It is now possible to collect a large amount of data about personal movement usi
 ```{r loading}
 data_act<-read.csv("activity.csv")
 data_act$date<-as.Date(data_act$date)
+data_act$steps<-ifelse(data_act$steps==0,NA,data_act$steps)
 ```
 
 ## What is mean total number of steps taken per day?
@@ -64,7 +65,9 @@ average_time[average_time$steps==max_time,]
 1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```{r num_na}
-length(which(is.na(data_act$steps)==TRUE))
+data_act1<-read.csv("activity.csv")
+data_act1$date<-as.Date(data_act1$date)
+length(which(is.na(data_act1$steps)==TRUE))
 ```
 
 2.Devise a strategy for filling in all of the missing values in the dataset.
@@ -73,7 +76,7 @@ length(which(is.na(data_act$steps)==TRUE))
 
 ```{r filling_na}
 
-datamerge<-merge(data_act,average_time,by.x="interval",by.y="interval")
+datamerge<-merge(data_act1,average_time,by.x="interval",by.y="interval")
 datamerge$steps_f<-ifelse(is.na(datamerge$steps.x),datamerge$steps.y,datamerge$steps.x)
 ```
 
@@ -82,6 +85,7 @@ datamerge$steps_f<-ifelse(is.na(datamerge$steps.x),datamerge$steps.y,datamerge$s
 ```{r new_dataset}
 data_act_new = data.frame(datamerge$interval, datamerge$date, datamerge$steps_f)  
 colnames(data_act_new)<-c("interval","date","steps")
+data_act_new$steps<-ifelse(data_act_new$steps==0,NA,data_act_new$steps)
 data_act_new<-data_act_new[order(data_act_new$date, data_act_new$interval),]
 ```
 

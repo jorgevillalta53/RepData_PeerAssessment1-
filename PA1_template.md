@@ -17,6 +17,7 @@ It is now possible to collect a large amount of data about personal movement usi
 ```r
 data_act<-read.csv("activity.csv")
 data_act$date<-as.Date(data_act$date)
+data_act$steps<-ifelse(data_act$steps==0,NA,data_act$steps)
 ```
 
 ## What is mean total number of steps taken per day?
@@ -52,7 +53,7 @@ print(summary)
 
 ```
 ##   mean1 median1
-## 1 37.38       0
+## 1 134.3      56
 ```
 
 ## What is the average daily activity pattern?
@@ -79,8 +80,8 @@ average_time[average_time$steps==max_time,]
 ```
 
 ```
-##     interval steps
-## 104      835 206.2
+##    interval steps
+## 86      835 352.5
 ```
 ## Imputing missing values
 
@@ -88,7 +89,9 @@ average_time[average_time$steps==max_time,]
 
 
 ```r
-length(which(is.na(data_act$steps)==TRUE))
+data_act1<-read.csv("activity.csv")
+data_act1$date<-as.Date(data_act1$date)
+length(which(is.na(data_act1$steps)==TRUE))
 ```
 
 ```
@@ -101,7 +104,7 @@ length(which(is.na(data_act$steps)==TRUE))
 
 
 ```r
-datamerge<-merge(data_act,average_time,by.x="interval",by.y="interval")
+datamerge<-merge(data_act1,average_time,by.x="interval",by.y="interval")
 datamerge$steps_f<-ifelse(is.na(datamerge$steps.x),datamerge$steps.y,datamerge$steps.x)
 ```
 
@@ -111,6 +114,7 @@ datamerge$steps_f<-ifelse(is.na(datamerge$steps.x),datamerge$steps.y,datamerge$s
 ```r
 data_act_new = data.frame(datamerge$interval, datamerge$date, datamerge$steps_f)  
 colnames(data_act_new)<-c("interval","date","steps")
+data_act_new$steps<-ifelse(data_act_new$steps==0,NA,data_act_new$steps)
 data_act_new<-data_act_new[order(data_act_new$date, data_act_new$interval),]
 ```
 
@@ -141,7 +145,7 @@ print(summary_new)
 
 ```
 ##   mean2 median2
-## 1 37.38       0
+## 1 125.4      72
 ```
 ## Are there differences in activity patterns between weekdays and weekends?
 
