@@ -10,6 +10,9 @@ It is now possible to collect a large amount of data about personal movement usi
 
 2.Process/transform the data (if necessary) into a format suitable for your analysis
 
+### **NOTE: I DECIDE TAKE 0 LIKE A REAL VALUE, BECAUSE I THINK THAT ITS A REAL VALUE WHEN YOURE DOING NOTHING, SO THE LECTURE ITS 0**
+
+
 ```{r loading}
 data_act<-read.csv("activity.csv")
 data_act$date<-as.Date(data_act$date)
@@ -28,6 +31,8 @@ qplot(steps,data=sum_act)
 ```
 
 2.Calculate and report the mean and median total number of steps taken per day
+
+### THE VALUES ARE SO LOW, BECAUSE A TAKE 0 LIKE A REAL LECTURE
 
 ```{r mean_median}
 mean1<-mean(melt_data$value)
@@ -62,9 +67,12 @@ average_time[average_time$steps==max_time,]
 length(which(is.na(data_act$steps)==TRUE))
 ```
 
-2.Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+2.Devise a strategy for filling in all of the missing values in the dataset.
+
+**My strategy was filling the NA's with the general average per interval... For example, I use the general mean for 5-minute interval for all the NA's that belongs in that interval...**
 
 ```{r filling_na}
+
 datamerge<-merge(data_act,average_time,by.x="interval",by.y="interval")
 datamerge$steps_f<-ifelse(is.na(datamerge$steps.x),datamerge$steps.y,datamerge$steps.x)
 ```
@@ -85,6 +93,8 @@ melt_data_new<-melt(data_act_new,id=c("date"),measure.vars=("steps"),na.rm=TRUE)
 sum_act_new<-dcast(melt_data_new,date~variable,sum)
 qplot(steps,data=sum_act_new)
 ```
+### THE VALUES ARE THE SAME, BECAUSE A TAKE 0 LIKE A REAL LECTURE
+
 ```{r summary1}
 mean2<-mean(melt_data_new$value)
 median2<-median(melt_data_new$value)
@@ -109,7 +119,3 @@ average_time_new<-dcast(melt_time_new1,interval+type_day~variable,mean)
 qplot(interval,steps,data=average_time_new,facets=type_day~.,geom="line")
 
 ```
-
-
-
-

@@ -2,13 +2,16 @@ Reproducible Research: Peer Assessment 1
 ========================================================
 **JORGE ALBERTO VILLALTA MONTENEGRO**
 
-It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the quantified self movement  a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the quantified self movement  a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
+It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the “quantified self” movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the “quantified self” movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
 
 ## Loading and preprocessing the data
 
 1.Load the data (i.e. read.csv())
 
 2.Process/transform the data (if necessary) into a format suitable for your analysis
+
+### **NOTE: I DECIDE TAKE 0 LIKE A REAL VALUE, BECAUSE I THINK THAT ITS A REAL VALUE WHEN YOURE DOING NOTHING, SO THE LECTURE ITS 0**
+
 
 
 ```r
@@ -36,6 +39,8 @@ qplot(steps,data=sum_act)
 ![plot of chunk steps_per_day](figure/steps_per_day.png) 
 
 2.Calculate and report the mean and median total number of steps taken per day
+
+### THE VALUES ARE SO LOW, BECAUSE A TAKE 0 LIKE A REAL LECTURE
 
 
 ```r
@@ -90,7 +95,9 @@ length(which(is.na(data_act$steps)==TRUE))
 ## [1] 2304
 ```
 
-2.Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+2.Devise a strategy for filling in all of the missing values in the dataset.
+
+**My strategy was filling the NA's with the general average per interval... For example, I use the general mean for 5-minute interval for all the NA's that belongs in that interval...**
 
 
 ```r
@@ -122,6 +129,8 @@ qplot(steps,data=sum_act_new)
 ```
 
 ![plot of chunk histogr](figure/histogr.png) 
+### THE VALUES ARE THE SAME, BECAUSE A TAKE 0 LIKE A REAL LECTURE
+
 
 ```r
 mean2<-mean(melt_data_new$value)
@@ -136,7 +145,7 @@ print(summary_new)
 ```
 ## Are there differences in activity patterns between weekdays and weekends?
 
-1.Create a new factor variable in the dataset with two levels  weekday and weekend indicating whether a given date is a weekday or weekend day.
+1.Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 
 ```r
@@ -155,7 +164,3 @@ qplot(interval,steps,data=average_time_new,facets=type_day~.,geom="line")
 ```
 
 ![plot of chunk plot_week](figure/plot_week.png) 
-
-
-
-
